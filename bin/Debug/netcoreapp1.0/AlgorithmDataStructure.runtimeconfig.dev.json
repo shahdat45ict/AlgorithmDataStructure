@@ -1,7 +1,7 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Shahdat\\.nuget\\packages"
+      "/Users/shahdathosain/.nuget/packages"
     ]
   }
 }
