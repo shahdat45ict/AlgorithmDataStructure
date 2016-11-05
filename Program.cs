@@ -36,6 +36,7 @@ namespace ConsoleApplication
             Console.WriteLine("\n");
             Node bt = BuildBinaryTree(arr);
             PrintBinaryTree(bt);
+            
         }
 
         static void PrintArray(int[] arr)
