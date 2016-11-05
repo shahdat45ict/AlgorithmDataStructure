@@ -7,40 +7,152 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            /*  int n = 1000000;
-              Random rand = new Random();
+            /*int n = 10;
+            // int[] arr = new int[] {1, 64, -12, 15, 11, 40 };
+            int[] arr = new int[n];
+            int[] arr1 = new int[n];
+            int[] arr2 = new int[n];
+            int[] arr3 = new int[n];
+            int[] arr4 = new int[n];
+            Random random = new Random();
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = arr1[i] = arr2[i] = arr3[i] = arr4[i] = random.Next(0, n);
+            }
+            Console.WriteLine("Unsorted Array");
+            //PrintArray(arr);
+            SelectionSort(arr1);
+            BubbleSort(arr2);
+            ShahdatSort(arr3);
 
-              int[] arr = new int[n]; //{38,27,43,3,9,82,10};
-              for (int i = 0; i < n; i++)
-              {
-                  arr[i] = rand.Next(0, n);
-              }
-              int l = 0, r = arr.Length - 1;
-              DateTime start = DateTime.Now;
-              Sort(arr, l, r);
-              Console.WriteLine(DateTime.Now.Subtract(start).TotalMilliseconds + " millisecs");
-             */
-            /*  for(int i =0; i<arr.Length; i++)
-              {
-                  Console.Write(arr[i]+" ");
-              }*/
+            int l = 0, r = arr.Length - 1;
+            DateTime start = DateTime.Now;
+            MergeSort(arr4, l, r);
+            Console.WriteLine("\nMerge sort elapsed time: " + DateTime.Now.Subtract(start).TotalMilliseconds + " millisecs");
+            Console.WriteLine("Sorted Array");
+           // PrintArray(arr4);*/
 
-            int [] arr = new int[]{0,1,2,3,4,5,6,7,8};// {38,27,43,3,9,82,10};        
-
-           
+            int[] arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };// {38,27,43,3,9,82,10};        
+            Console.WriteLine("\n");
             Node bt = BuildBinaryTree(arr);
             PrintBinaryTree(bt);
         }
 
+        static void PrintArray(int[] arr)
+        {
+            if (arr == null) return;
 
-        static void Sort(int[] arr, int l, int r)
+            foreach (int v in arr)
+            {
+                Console.Write(v + " ");
+            }
+        }
+        static void SelectionSort(int[] arr)
+        {
+            DateTime startTime = DateTime.Now;
+
+            if (arr == null)
+            {
+                return;
+            }
+            int n = arr.Length;
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                int mini = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (arr[j] < arr[mini])
+                    {
+                        mini = j;
+                    }
+                }
+                if (arr[i] > arr[mini])
+                {
+                    int t = arr[mini];
+                    arr[mini] = arr[i];
+                    arr[i] = t;
+                }
+            }
+
+
+            //print           
+            Console.WriteLine();
+            Console.WriteLine(string.Format("Selection Sort elapsed time {0} milliseconds",
+             DateTime.Now.Subtract(startTime).TotalMilliseconds));
+            Console.WriteLine("Sorted Array");
+            if (n < 100)
+                PrintArray(arr);
+            return;
+        }
+        static void BubbleSort(int[] arr)
+        {
+            DateTime startTime = DateTime.Now;
+
+            if (arr == null) return;
+            int n = arr.Length;
+
+            for (int i = n; i > 1; i--)
+            {
+                for (int j = 0; j < i - 1; j++)
+                {
+                    if (arr[j + 1] < arr[j])
+                    {
+                        int t = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = t;
+                    }
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(string.Format("Bubble sort elapsed time {0} milliseconds",
+           DateTime.Now.Subtract(startTime).TotalMilliseconds));
+            Console.WriteLine("Sorted Array");
+            if (n < 100)
+                PrintArray(arr);
+            return;
+        }
+        static void ShahdatSort(int[] arr)
+        {
+            DateTime startTime = DateTime.Now;
+
+            if (arr == null) return;
+
+            int n = arr.Length;
+            int sp = 0;
+            while (sp < n - 1)
+            {
+                int p = sp;
+                for (int j = p + 1; j < n; j++)
+                    if (arr[j] < arr[p]) p = j;
+
+                if (p == sp) sp++;
+                else
+                {
+                    int t = arr[p];
+                    arr[p] = arr[sp];
+                    arr[sp] = t;
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(string.Format("Shahdat sort elapsed time {0} milliseconds",
+           DateTime.Now.Subtract(startTime).TotalMilliseconds));
+            Console.WriteLine("Sorted Array");
+            if (n < 100)
+                PrintArray(arr);
+            return;
+        }
+
+        static void MergeSort(int[] arr, int l, int r)
         {
             if (l < r)
             {
                 int m = (l + r) / 2;
 
-                Sort(arr, l, m);
-                Sort(arr, m + 1, r);
+                MergeSort(arr, l, m);
+                MergeSort(arr, m + 1, r);
                 Merge(arr, l, m, r);
             }
         }
